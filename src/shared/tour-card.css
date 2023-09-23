@@ -62,10 +62,12 @@
     color: var(--text-color);
     font-size: 0.8rem   ;
  }
- .booking__btn{
+  .booking__btn{
     background: var(--secondary-color);
     cursor: pointer;
     padding: 0.2rem 0.5rem !important;
+    border: none;
+    border-radius: 5px;
  }
  .booking__btn a{
    text-decoration: none;

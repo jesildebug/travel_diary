@@ -9,6 +9,8 @@ import {Routes,Route,Navigate} from 'react-router-dom';
  import SearchResultList from './../pages/SearchResultList'
  import Tours from './../pages/Tours'
  import TourDetails from './../pages/TourDetails'
+import ThankYou from '../pages/ThankYou';
+ 
 
 const Routers = () => {
   return (
@@ -19,6 +21,7 @@ const Routers = () => {
      <Route path='/tours/:id' element={<TourDetails/>}/>
      <Route path='/login' element={<Login/>}/>
      <Route path='/register' element={<Register/>}/>
+     <Route path='/thank-you' element={<ThankYou/>}/>
      <Route path='/tours/search' element={<SearchResultList/>}/>
 
    </Routes>
