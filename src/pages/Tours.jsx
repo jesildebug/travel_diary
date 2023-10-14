@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import CommonSection from '../shared/CommonSection'
 
 import '../styles/tour.css'
-import tourData from '../assets/data/tours'
 import TourCard from './../shared/TourCard';
 import SearchBar from './../shared/SearchBar';
 import NewsLetter from './../shared/Newsletter';
 import { Col, Container, Row } from 'reactstrap';
+import useFetch from '../hooks/useFetch';
+
 
 
 const Tours = () => {
@@ -14,11 +15,15 @@ const Tours = () => {
 const [pageCount,setPageCount] = useState(0)
 const [page,setPage]=useState(0)
 
+const {data:tours,loading,error} = useFetch(`http://localhost:4000/api/v1/tours?page=${page}`)
+const {data:tourCount} = useFetch(`http://localhost:4000/api/v1/tours/search/getTourCount`)
+
 
 useEffect(()=>{
-  const pages = Math.ceil(5/4)
+  const pages = Math.ceil(tourCount/8)
   setPageCount(pages)
-},[page])
+  window.scrollTo(0,0)
+},[page,tourCount,tours])
 
   return (
     <div>
@@ -32,9 +37,13 @@ useEffect(()=>{
       </section>
       <section className='pt-0'>
         <Container>
-          <Row>
-            {tourData ?.map(tour=>
-            <Col lg='3' className='mb-4' key={tour.id}><TourCard tour={tour}/>
+          {loading && <h4 className='text-center pt-5'>Loading.......</h4>}
+          {error && <h4 className='text-center pt-5'>{error}</h4>}
+          {
+            !loading && !error &&<Row>
+            {tours?.map(tour=>
+            <Col lg='3' className='mb-4' key={tour._id}>
+              <TourCard tour={tour}/>
             </Col>)}
              <Col lg="12">
               <div className='pagination d-flex justify-content-center align-items-center mt-4 gap-3'>
@@ -47,6 +56,7 @@ useEffect(()=>{
               </div>
              </Col>
           </Row>
+          }
         </Container>
       </section>
       <NewsLetter/>

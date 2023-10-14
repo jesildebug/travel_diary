@@ -1,19 +1,26 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState,useContext } from 'react'
 import '../styles/tour-details.css'
 import {Container,Col,Row,Form,ListGroup} from 'reactstrap'
 import {useParams} from 'react-router-dom'
-import tourData from '../assets/data/tours'
 import calculateAvgRating from '../utils/avgRating'
 import avatar from '../assets/images/avatar.jpg'
 import Booking from '../components/Booking/Booking'
 import Newsletter from '../shared/Newsletter'
+import useFetch from './../hooks/useFetch'
+import {BASE_URL} from './../utils/config'
+import {AuthContext} from './../context/AuthContext'
+
+
 const TourDetails = () => {
 
 const {id} = useParams() 
 const reviewMsgRef = useRef()
-const [tourRating,setTourRating] = useState(null)
 
-const tour = tourData.find(tour => tour.id === id)
+const [tourRating,setTourRating] = useState(null)
+const {user} = useContext(AuthContext)
+
+
+const {data:tour,loading,error} = useFetch(`${BASE_URL}/tours/${id}`)
 
 const{photo,title,desc,price,reviews,city,address,distance,maxGroupSize} = tour
 
@@ -22,11 +29,48 @@ const {avgRating,totalRating} =calculateAvgRating(reviews)
 
 // submit request to the server
 
-const submitHandler = e=>{
+const submitHandler = async e =>{
   e.preventDefault()
-  const reviewText= reviewMsgRef.current.value
+  const reviewText= reviewMsgRef.current.value;
+ 
+ 
+  try {
 
-}
+    if(!user || user === undefined || user === null){
+      alert('Please sign in ')
+    }
+
+    const reviewObj = {
+      username :user?.username,
+      reviewText,
+      rating:"tout"
+
+    }
+
+    const res =  await fetch(`${BASE_URL}/review/${id}`,{
+      method:'post',
+      headers: {
+         'content-type':'application/json'
+      },
+      credentials:'include',
+      body:JSON.stringify(reviewObj)
+    })
+
+    const result = await res.json()
+    if(!res.ok){
+      return alert(result.message)
+    }
+    alert(result.message)
+    
+  } catch (err) {
+    alert(err.message)
+  }
+
+  
+};
+useEffect(()=>{
+ window.scrollTo(0,0)
+},[])
 
   return (
     <>
@@ -76,7 +120,8 @@ const submitHandler = e=>{
                     <span onClick={()=>setTourRating(5)}>5<i class="ri-star-fill"></i></span>
                    </div>
                    <div className="review__input">
-                    <input type='text' ref={reviewMsgRef} placeholder='share your thought' required/>
+                    {/* <input type='text' ref={reviewMsgRef} placeholder='share your thought' required/> */}
+                    <input type='text' id="reviewMessage" ref={reviewMsgRef} placeholder='share your thought' required />
                     <button className="btn primary__btn text-white" type='submit'>Submit</button>
                    </div>
                   </Form>
@@ -88,19 +133,19 @@ const submitHandler = e=>{
                               <div className='w-100'>
                                 <div className='d-flex align-items-center justify-content-between'>
                                   <div>
-                                    <h5>Jaseel</h5>
+                                    <h5>{review.username}</h5>
                                     
                                     <p>
                                       {new Date().toDateString()}
                                     </p>
-                                    <h6>Amazing tour</h6>
-                                  </div>
+                                   </div>
                                   <span className='d-flex align-items-center '>
-                                    5<i class="ri-star-fill"></i>
+                                    {review.rating}
+                                    <i class="ri-star-fill"></i>
                                  </span>
-                                  
-                                  
                                 </div>
+                                  <h6>{review.reviewText}</h6>
+                                  
                               </div>
                           </div>
                         ))
