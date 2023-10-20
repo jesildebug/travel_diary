@@ -43,7 +43,7 @@ const submitHandler = async e =>{
     const reviewObj = {
       username :user?.username,
       reviewText,
-      rating:"tout"
+      rating:tourRating
 
     }
 
@@ -136,7 +136,7 @@ useEffect(()=>{
                                     <h5>{review.username}</h5>
                                     
                                     <p>
-                                      {new Date().toDateString()}
+                                      {new Date(review.createdAt).toDateString()}
                                     </p>
                                    </div>
                                   <span className='d-flex align-items-center '>
