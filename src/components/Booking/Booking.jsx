@@ -122,4 +122,3 @@ const Booking = ({tour,avgRating}) => {
     export default Booking
 
     
-

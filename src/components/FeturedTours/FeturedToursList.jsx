@@ -10,7 +10,7 @@ const FeturedToursList = () => {
     data: getFeaturedTour,
     loading,
     error
-  } = useFetch(`http://localhost:4000/api/v1/tours/search/getFeaturedTours`);
+  } = useFetch(`https://travel-diary-backend-3x2a.onrender.com`);
 
   return (
     <>
