@@ -6,7 +6,8 @@ import TourCard from './../shared/TourCard';
 import SearchBar from './../shared/SearchBar';
 import NewsLetter from './../shared/Newsletter';
 import { Col, Container, Row } from 'reactstrap';
-import useFetch from '../hooks/useFetch';
+
+import useFetch from '../hooks/useFetch';        
 
 
 
@@ -15,8 +16,8 @@ const Tours = () => {
 const [pageCount,setPageCount] = useState(0)
 const [page,setPage]=useState(0)
 
-const {data:tours,loading,error} = useFetch(`http://localhost:4000/api/v1/tours?page=${page}`)
-const {data:tourCount} = useFetch(`http://localhost:4000/api/v1/tours/search/getTourCount`)
+const {data:tours,loading,error} = useFetch(`https://travel-diary-backend-3x2a.onrender.com/tours?page=${page}`)
+const {data:tourCount} = useFetch(`https://travel-diary-backend-3x2a.onrender.com/tours/search/getTourCount`)
 
 
 useEffect(()=>{

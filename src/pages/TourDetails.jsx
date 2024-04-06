@@ -20,7 +20,7 @@ const [tourRating,setTourRating] = useState(null)
 const {user} = useContext(AuthContext)
 
 
-const {data:tour,loading,error} = useFetch(`${BASE_URL}/tours/${id}`)
+const {data:tour,loading,error} = useFetch(`https://travel-diary-backend-3x2a.onrender.com/tours/${id}`)
 
 const{photo,title,desc,price,reviews,city,address,distance,maxGroupSize} = tour
 

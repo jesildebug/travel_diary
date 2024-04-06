@@ -27,7 +27,7 @@ const Login = () => {
 
        dispatch({type: 'LOGIN_START '})
        try {
-        const res =  await fetch(`http://localhost:4000/api/v1/auth/login`,{
+        const res =  await fetch(`https://travel-diary-backend-3x2a.onrender.com/auth/login`,{
           method: 'post',
           headers: {
             'content-type': 'application/json',
