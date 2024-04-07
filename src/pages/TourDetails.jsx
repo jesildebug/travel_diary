@@ -47,7 +47,7 @@ const submitHandler = async e =>{
 
     }
 
-    const res =  await fetch(`${BASE_URL}/review/${id}`,{
+    const res =  await fetch(`https://travel-diary-backend-3x2a.onrender.com/api/v1/review/${id}`,{
       method:'post',
       headers: {
          'content-type':'application/json'

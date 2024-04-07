@@ -37,7 +37,7 @@ const Booking = ({tour,avgRating}) => {
             if(!user || user === undefined || user === null){
                 return alert('Please sign in')
             }
-            const res = await  fetch(`http://localhost:4000/api/v1/booking`,{
+            const res = await  fetch(`https://travel-diary-t9e5.onrender.com/api/v1/booking`,{
             method:'post',
              headers:{
                 'content-type':'application/json'
