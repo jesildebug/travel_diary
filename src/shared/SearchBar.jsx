@@ -22,7 +22,7 @@ const SearchBar = () => {
       return alert('All fields are required and must be numbers!');
     }
 
-    const res = await fetch(`http://localhost:4000/api/v1/tours/search/getTourBySearch?city=${location}&distance=${numericDistance}&maxGroupSize=${numericMaxGroupSize}`);
+    const res = await fetch(`https://travel-diary-backend-3x2a.onrender.com/api/v1/tours/search/getTourBySearch?city=${location}&distance=${numericDistance}&maxGroupSize=${numericMaxGroupSize}`);
 
     if (!res.ok) alert('Something went wrong');
 
