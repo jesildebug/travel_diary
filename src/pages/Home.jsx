@@ -71,7 +71,7 @@ const Home = () => {
     </Container>
    </section>
 
-{/*===============fetured tour section started=============== */}
+{/*===============featured tour section started=============== */}
 <section>
   <Container>
     <Row>
